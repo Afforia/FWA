@@ -6,10 +6,10 @@
 </head>
 <body>
 <br/>
-<a href="login.html">SignIn</a>
+<a href="sign_in.html">SignIn</a>
 </body>
 <body>
 <br/>
-<a href="signUp">SingUp</a>
+<a href="sign_up.html">SingUp</a>
 </body>
 </html>
