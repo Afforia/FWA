@@ -2,6 +2,7 @@ package edu.school21.cinema.repositories;
 
 import edu.school21.cinema.DatabaseConnection;
 import edu.school21.cinema.models.User;
+import edu.school21.cinema.services.BCryptService;
 import jakarta.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.sql.Connection;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 public class UserRepository implements Serializable {
 
     private Connection connection;
+    private BCryptService bCryptService;
 
     public User findUser(HttpServletRequest request) {
         User user = new User();
@@ -22,6 +24,8 @@ public class UserRepository implements Serializable {
 
             st.setString(1, request.getParameter("login"));
             st.setString(2, request.getParameter("password"));
+
+            //bCryptService.checkPassword(request.getParameter("password"), пароль из бд);
 
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
@@ -45,7 +49,7 @@ public class UserRepository implements Serializable {
             st.setString(1, request.getParameter("firstName"));
             st.setString(2, request.getParameter("lastName"));
             st.setString(3, request.getParameter("phoneNumber"));
-            st.setString(4, request.getParameter("password"));
+            st.setString(4, bCryptService.encodePassword(request.getParameter("password")));
             st.setString(5, request.getParameter("login"));
 
             result = st.executeUpdate();
