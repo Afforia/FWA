@@ -1,8 +1,9 @@
 package edu.school21.cinema.repositories;
 
 import edu.school21.cinema.DatabaseConnection;
+import edu.school21.cinema.filters.NameFilter;
 import edu.school21.cinema.models.User;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -42,6 +43,9 @@ public class UserRepository implements Serializable {
                 "insert into profile "
                     + "(first_name, last_name, phone_number, pass, login) "
                     + "values (?, ?, ?, ?, ?)")) {
+            if(!NameFilter.nameFilter(request.getParameter("firstName"))) {
+                return result;
+            }
             st.setString(1, request.getParameter("firstName"));
             st.setString(2, request.getParameter("lastName"));
             st.setString(3, request.getParameter("phoneNumber"));

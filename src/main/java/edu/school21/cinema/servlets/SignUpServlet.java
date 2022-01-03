@@ -1,11 +1,10 @@
 package edu.school21.cinema.servlets;
 
 import edu.school21.cinema.repositories.UserRepository;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 
@@ -13,11 +12,6 @@ import java.io.PrintWriter;
 public class SignUpServlet extends HttpServlet {
 
     UserRepository userRepository;
-
-    @Override
-    public void init() throws ServletException {
-        userRepository = new UserRepository();
-    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -29,6 +23,8 @@ public class SignUpServlet extends HttpServlet {
             writer.println("<html> <h2>Successfully Created</html>");
         } else if (res == 2) {
             writer.println("<html> <h2>Ops something go wrong</html>");
+        } else {
+            writer.print("Sorry username or password error");
         }
     }
 }
